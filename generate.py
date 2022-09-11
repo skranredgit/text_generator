@@ -19,7 +19,14 @@ class generate:
         model.to(device)
         model.load_state_dict(torch.load(self.model + r"/model.pt"))
         if st != "":
-            st = ' '.join(["".join([g for g in i.lower() if g in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя']) for i in st.split()])
+
+            st = st.replace("1", " один ").replace("2", " два ").replace("3", " три ").replace("4", " четыре ").replace(
+                "5", " пять ").replace("6", " шесть ").replace("7", " семь ").replace("8", " восемь ").replace(
+                "9", " девять ").replace("0", " ноль ")
+            st = ' '.join(
+                ["".join([g for g in i.lower() if g in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя']) for i in st.split()])
+            while "  " in st:
+                st = st.replace("  ", " ")
 
         hidden = model.init_hidden()
         train = torch.LongTensor([char_to_idx[char] for char in st]).view(-1, 1, 1).to(device)

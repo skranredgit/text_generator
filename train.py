@@ -20,8 +20,11 @@ class train:
 
         with open(file, "r", encoding="utf-8") as f:
             put = f.read()
-
+        put = put.replace("1", " один ").replace("2", " два ").replace("3", " три ").replace("4", " четыре ").replace(
+            "5", " пять ").replace("6", " шесть ").replace("7", " семь ").replace("8", " восемь ").replace("9", " девять ").replace("0", " ноль ")
         self.text = ' '.join(["".join([g for g in i.lower() if g in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя']) for i in put.split()])
+        while "  " in self.text:
+            self.text = self.text.replace("  ", " ")
 
     def tr(self):
 
